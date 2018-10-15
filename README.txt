@@ -30,7 +30,7 @@ the bottleneck of downloading all the images at once, which would be terribly
 inefficient, the NSOperationQueue is used to schedule the asynchronous
 operations of downloading and resizing. Each resize operation depends on the
 download operation, which means resizing is only started when the downloading is
-complete. Downloading and resizing are only scheduled for visible or potentially
+complete. Downloading and resizing are only scheduled for the visible or potentially
 visible cells. The soon to be visible cells are deduced from the direction of
 scrolling. The operations are added to the queue by the batches. The scheduling
 of the operations is interrupted when the user scrolls quickly through the
