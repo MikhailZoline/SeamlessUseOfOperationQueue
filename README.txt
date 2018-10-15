@@ -4,9 +4,10 @@ for scheduling of photo downloading, resizing and rendering
 The general idea is to make the user experience as seamless as possible.
 
 The Unsplash API: (https://unsplash.com/developers) is used as the backend to
-serve the list of one thousand photos with corresponding URLs.  The asynchronous
-REST web request is maid via Alamofire  framework, to fetch the list of photo
-records. The JSON stanza from Unsplash API looks like this: 
+serve the list of one thousand photos with corresponding URLs.
+The asynchronous REST request is sent via the Alamofire framework, 
+to fetch the list of photo records. 
+The response JSON stanza from Unsplash API looks like this: 
 [
   {
     "format": "jpeg",
