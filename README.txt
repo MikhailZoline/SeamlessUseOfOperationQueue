@@ -7,7 +7,7 @@ The Unsplash API: (https://unsplash.com/developers) is used as the backend to
 serve the list of one thousand photos with corresponding URLs.
 The asynchronous REST request is sent via the Alamofire framework, 
 to fetch the list of photo records. 
-The response JSON stanza from Unsplash API looks like this: 
+Unsplash API uses the JSON data format, here’s an example:
 [
   {
     "format": "jpeg",
