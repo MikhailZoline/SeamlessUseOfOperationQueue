@@ -106,11 +106,21 @@ class  myUnSplashViewController: UIViewController, UITableViewDelegate, UITableV
             switch response.result {
             // If the request is successful, the property list data is extracted into an array of dictionnaries
             // and then processed again into an array of PhotoRecord objects
-            case .success (let value):
-                let jsonarray = JSON(value).arrayValue
-                for ( _, obj) in jsonarray.enumerated(){
-                    self.myPhotos.append(myPhotoRecord(dictionary: (JSON(obj).dictionaryObject ?? nil)!))
+            case .success (let value ):
+/*
+            for jsonString in value as! Array<Any>{
+                if let jsonData = jsonString as .data(using: .utf8){
+                        let photoObject = try? JSONDecoder().decode(myPhotoRecord.self, from: jsonData)
+                        self.myPhotos.append(photoObject!)
                 }
+            }
+*/
+
+            let jsonarray = JSON(value).arrayValue
+            for ( _, obj) in jsonarray.enumerated(){
+                self.myPhotos.append(myPhotoRecord(dictionary: (JSON(obj).dictionaryObject ?? nil)!))
+            }
+ 
             case .failure(let error):
                 print(getFailureReason(rawValue: error as! Int) as Any)
             }
