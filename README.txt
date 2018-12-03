@@ -5,7 +5,7 @@ The general idea is to make the user experience as seamless as possible.
 
 The Unsplash API: (https://unsplash.com/developers) is used as the backend to
 serve the list of one thousand photos with corresponding URLs.
-The asynchronous REST request is sent via the Alamofire framework, 
+The asynchronous REST request is sent via the NSURLSession framework, 
 to fetch the list of photo records. 
 Unsplash API uses the JSON data format, here’s an example:
 [
@@ -22,7 +22,7 @@ Unsplash API uses the JSON data format, here’s an example:
 ]
 
 The parsing of the resulting JSON list to the local structure is done via the
-SwiftyJSON framework. The local structure is an array of photo-records to feed
+Decodable protocol. The local structure is an array of photo-records to feed
 the table view. Each record retains an URL to download, the author's name, the
 width and height of the original photo, and so on. At this point, the table view
 knows how many rows it has and the URLs of the images to display. To eliminate
