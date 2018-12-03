@@ -8,8 +8,6 @@
 //
 
 import UIKit
-import Alamofire
-import SwiftyJSON
 
 // MARK: - Network constants""
 fileprivate let myNetworkRequestHost : String = "unsplash.it"
@@ -22,8 +20,8 @@ public let mySplashURL = "https://unsplash.it/list"
 fileprivate let myReuseIdentifier = "myTableViewCell"
 
 // MARK: -  Aamofire debug extention
-extension Request {
-    public func debugLog() -> Self {
+extension URLRequest {
+    public func debugLog() -> URLRequest {
         #if DEBUG
         debugPrint("=======================================")
         debugPrint(self)
@@ -102,34 +100,60 @@ class  myUnSplashViewController: UIViewController, UITableViewDelegate, UITableV
         // Call the parent class viewDidLoad
         super.viewDidLoad()
         // Make a REST request to the Unsplash API to get the list of photos with corresponding URLs
-        Alamofire.request(mySplashURL, method: .get).validate().responseJSON { [unowned self] response in
-            switch response.result {
-            // If the request is successful, the property list data is extracted into an array of dictionnaries
-            // and then processed again into an array of PhotoRecord objects
-            case .success (let value ):
-/*
-            for jsonString in value as! Array<Any>{
-                if let jsonData = jsonString as .data(using: .utf8){
-                        let photoObject = try? JSONDecoder().decode(myPhotoRecord.self, from: jsonData)
-                        self.myPhotos.append(photoObject!)
-                }
-            }
-*/
-
-            let jsonarray = JSON(value).arrayValue
-            for ( _, obj) in jsonarray.enumerated(){
-                self.myPhotos.append(myPhotoRecord(dictionary: (JSON(obj).dictionaryObject ?? nil)!))
-            }
- 
-            case .failure(let error):
-                print(getFailureReason(rawValue: error as! Int) as Any)
-            }
-            // Call of unsynchronized process scheduling to populate visible cells with photos
-            DispatchQueue.main.async {
-                self.loadImagesForCurrentCells(completion: {self.myTableView.reloadData()} )
-            }
+        guard let url = URL(string: mySplashURL) else{
+            fatalError("Failed to create URL with \(mySplashURL)" )
         }
-       
+
+        let task = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+            if error != nil {
+                fatalError("Please check your network connection.")
+            }
+            else{
+                 guard let response = response as? HTTPURLResponse else {
+                    fatalError("Failed to obtain HTTPURLResponse from \(url.absoluteString)")
+                }
+                if 200...299 ~= response.statusCode {
+                    guard let data = data else {fatalError("Response returned with no data to decode") }
+
+                    do {
+                        // print("\(data.debugDescription)")
+                        let responseJSON: [myPhotoRecord] = try JSONDecoder().decode([myPhotoRecord].self, from : data)
+                        // print(responseJSON.debugDescription)
+                        DispatchQueue.main.async {[weak self] in
+                            self!.myPhotos = responseJSON
+                            self!.loadImagesForCurrentCells(completion: {self!.myTableView.reloadData()} )
+                        }
+                    }catch {
+                        print("Failed to Initialize JSON object \(error)")
+
+                    }
+                }
+                else {
+                    fatalError("\(response.statusCode.description)")
+
+                }
+
+            }
+
+        }
+        task.resume()
+
+//        _ = URLSession.shared.dataTask(with: url) { [weak self](data, resonse, error) in
+//            guard let data = data else {fatalError("Response returned with no data to decode") }
+//            OperationQueue.main.addOperation { [weak self ] in
+//                do{
+//                    let responseJSON: [myPhotoRecord] =  try JSONDecoder().decode([myPhotoRecord].self, from: data)
+//                    OperationQueue.main.addOperation {[weak self] in
+//                        self?.myPhotos = responseJSON
+//                        self?.myTableView.reloadData()
+//                    }
+//                }
+//                catch{
+//                    fatalError("\(error.localizedDescription)")
+//                }
+//            }
+//        }.resume()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

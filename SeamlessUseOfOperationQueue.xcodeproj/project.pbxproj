@@ -43,19 +43,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6022DD9478ACBE49B977149D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		7423F48D1F0EB50C00BB7972 = {
 			isa = PBXGroup;
 			children = (
 				7423F4981F0EB50C00BB7972 /* SeamlessUseOfOperationQueue */,
 				7423F4971F0EB50C00BB7972 /* Products */,
-				6022DD9478ACBE49B977149D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,16 +72,8 @@
 				7423F4A41F0EB50C00BB7972 /* LaunchScreen.storyboard */,
 				742DFCD7217388E2007B28CA /* Assets.xcassets */,
 				7423F4A71F0EB50C00BB7972 /* Info.plist */,
-				7423F4BB1F0EBED300BB7972 /* Frameworks */,
 			);
 			path = SeamlessUseOfOperationQueue;
-			sourceTree = "<group>";
-		};
-		7423F4BB1F0EBED300BB7972 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,7 +86,6 @@
 				7423F4921F0EB50C00BB7972 /* Sources */,
 				7423F4931F0EB50C00BB7972 /* Frameworks */,
 				7423F4941F0EB50C00BB7972 /* Resources */,
-				74372042217520DF002B6685 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -165,30 +148,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		74372042217520DF002B6685 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftyJSON.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7423F4921F0EB50C00BB7972 /* Sources */ = {
@@ -265,10 +224,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -281,7 +237,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = SPLASH;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG=1";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -324,6 +280,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

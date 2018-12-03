@@ -18,11 +18,12 @@ class myPhotoRecord : Decodable{
     var  post_url: String
     var  author: String
     var  author_url: String
-    var width: Double = 0
-    var height: Double = 0
+    var  width: Double
+    var  height: Double
     var  format: String
     var  filename: String
     var  id: Int
+    
 // Load time
     var ltime: TimeInterval?
 // Resize time
@@ -31,18 +32,7 @@ class myPhotoRecord : Decodable{
     var state = myPhotoRecordState.New
 // The image defaults to a placeholder
     var image = UIImage(named: "placeholder")
-// Init with dictionary
-    init(dictionary: [String: Any]) {
-        post_url = dictionary["post_url"] as! String + "/download";
-        author = dictionary["author"] as? String ?? ""
-        author_url = dictionary["author_url"] as? String ?? ""
-        width = dictionary["width"] as? Double ?? 0
-        height = dictionary["height"] as? Double ?? 0
-        format = dictionary["format"] as? String ?? ""
-        filename = dictionary["filename"] as? String ?? ""
-        id = dictionary["id"] as? Int ?? 0
-    }
-    
+
     enum CodingKeys: String, CodingKey {
         case post_url = "post_url"
         case author = "author"
