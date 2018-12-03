@@ -1,4 +1,4 @@
-Using Alamofire and SwiftyJSON for JSON array serialization and NsOperationQueue
+Using NSURLSession and Decodable for JSON array serialization and NsOperationQueue
 for scheduling of photo downloading, resizing and rendering
 
 The general idea is to make the user experience as seamless as possible.
