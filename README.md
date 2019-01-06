@@ -1,32 +1,21 @@
-Using NSURLSession and Decodable for JSON array serialization and NsOperationQueue
-for scheduling of photo downloading, resizing and rendering
 
-The general idea is to make the user experience as seamless as possible.
+<h1 align="center">
+<b>Lazy loading, resizing, cashing and renedring of one thousand photos</b>
+   <br><img width="275" height="500" src="https://user-images.githubusercontent.com/16679908/50730413-2c81bd00-111b-11e9-9053-7d1c2e82e615.gif">
+</h1>
 
-The Unsplash API: (https://unsplash.com/developers) is used as the backend to
-serve the list of one thousand photos with corresponding URLs.
+## The Unsplash API: (https://unsplash.com/developers) is used as the backend for providing a list of one thousand photos.
+
+Although each photo weighs about 4 MB, the general idea is to make the user experience as fluid as possible during the scroll action.
+
 The asynchronous REST request is sent via the NSURLSession framework, 
 to fetch the list of photo records. 
-Unsplash API uses the JSON data format, here’s an example:
-[
-  {
-    "format": "jpeg",
-    "width": 5616,
-    "height": 3744,
-    "filename": "0000_yC-Yzbqy7PY.jpeg",
-    "id": 0,
-    "author": "Alejandro Escamilla",
-    "author_url": "https://unsplash.com/@alejandroescamilla",
-    "post_url": "https://unsplash.com/photos/yC-Yzbqy7PY"
-  },
-]
-
 The parsing of the resulting JSON list to the local structure is done via the
 Decodable protocol. The local structure is an array of photo-records to feed
 the table view. Each record retains an URL to download, the author's name, the
 width and height of the original photo, and so on. At this point, the table view
 knows how many rows it has and the URLs of the images to display. To eliminate
-the bottleneck of downloading all the images at once, which would be terribly
+the bottleneck of downloading all images at once, which would be terribly
 inefficient, the NSOperationQueue is used to schedule the asynchronous
 operations of downloading and resizing. Each resize operation depends on the
 download operation, which means resizing is only started when the downloading is
